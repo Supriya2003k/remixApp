@@ -4,6 +4,8 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
+//POST, PUT, PATCH, DELETE
+
 export async function action({ request }: ActionFunctionArgs) {
   switch (request.method) {
     case 'POST':
