@@ -6,6 +6,8 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 
+import styles from './styles/tailwind.css'
+
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
@@ -22,6 +24,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </body>
     </html>
   );
+}
+
+export function links() {
+  return [
+    { rel: 'stylesheet', href: styles }
+  ];
 }
 
 export default function App() {
