@@ -12,7 +12,7 @@ export const getOrders = async () => {
     }
 };
 
-export const getOrdersById = async (id: String) => {
+export const getOrdersById = async (id: string) => {
     try {
         const order = await prisma.orders.findFirst({ where: { id } });
         return order;
@@ -22,7 +22,7 @@ export const getOrdersById = async (id: String) => {
     }
 };
 
-export const createOrder = async (status: String, orderID: String, shipper: String, product: String, AWBNumber: number, shippedVia: String, shipmentDate: Date, expectedDelivery: Date, actions: String) => {
+export const createOrder = async (status: string, orderID: string, shipper: string, product: string, AWBNumber: number, shippedVia: string, shipmentDate: Date, expectedDelivery: Date, actions: string) => {
     try {
         const order = await prisma.orders.create({ data: { status, orderID, shipper, product, AWBNumber, shippedVia, shipmentDate, expectedDelivery, actions } });
         return order;
@@ -45,7 +45,7 @@ export const updateOrderById = async (id: string, status: string, orderID: strin
     }
 };
 
-export const deleteUserById = async (id: String) => {
+export const deleteUserById = async (id: string) => {
     try {
         const order = await prisma.orders.delete({ where: { id } });
         return order;
