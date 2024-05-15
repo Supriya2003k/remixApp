@@ -1,39 +1,32 @@
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
-import { json, redirect } from "@remix-run/node";
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import type { LoaderFunctionArgs } from "@remix-run/node";
+import { json } from "@remix-run/node";
+import {  getOrders, createOrder } from "~/data/order";
 
 export async function loader({ request }: LoaderFunctionArgs) {
-  if (request.method === 'GET') {
-    return handleGetRequest();
-  } else {
-    return { status: 405, error: 'Unsupported request method' };
-  }
-}
-
-async function handleGetRequest() {
-  try {
-    const orders = await prisma.orders.findMany();
-    return json({ data: orders });
-  } catch (error) {
-    console.error('Error fetching orders:', error);
-    return json({ error: 'Internal server error' }, { status: 500 });
-  }
+  console.log('request method :', request.method);
+  const order = await getOrders();
+  return json({ success: true, data: order})
+  return json({ success: true, data: "data"})
 }
 
 export async function action({ request }: ActionFunctionArgs) {
-  switch (request.method) {
-    case 'POST':
-      return json({ success: true, message: "response from POST request"});
-    case 'PUT':
-      return json({ success: true, message: "response from PUT request"});
-    case 'PATCH':
-      return json({ success: true, message: "response from PATCH request"});
-    case 'DELETE':
-      return json({ success: true, message: "response from DELETE request"});
+  console.log("request method :", request.method)
+  const payload = await request.json();
+
+  switch(request.method) {
+    case "POST":
+      try {
+        const order = await createOrder(payload?.status, payload?.orderID, payload?.shipper, payload?.product, payload?.AWBNumber, payload?.shippedVia, payload?.shipmentDate, payload?.expectedDelivery, payload?.actions);
+        return json({ success:true, data: order});
+      }catch (error){
+        console.log('error :', error)
+      }
+    break
+
     default:
-      return new Response("Method Not Allowed", { status: 405});
+      return new Response("Mthod Not Allowed", { status: 405 });
+
   }
+  
 }
 
