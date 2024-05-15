@@ -1,4 +1,4 @@
-import type { LoaderFunctionArgs } from "@remix-run/node";
+import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import {  getOrders, createOrder } from "~/data/order";
 
@@ -6,7 +6,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   console.log('request method :', request.method);
   const order = await getOrders();
   return json({ success: true, data: order})
-  return json({ success: true, data: "data"})
+  //return json({ success: true, data: "data"})
 }
 
 export async function action({ request }: ActionFunctionArgs) {
