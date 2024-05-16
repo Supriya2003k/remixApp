@@ -1,0 +1,14 @@
+{
+    "experimental": false,
+    "features": {
+      "buildkit": true
+    },
+    "proxies": {},
+    "debug": true,
+    "log": {
+      "level": "info"
+    },
+    "httpTimeout": 60000,
+    "httpsTimeout": 60000
+  }
+  
