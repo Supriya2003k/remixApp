@@ -1,14 +1,12 @@
 import { useEffect, useState } from "react";
-import { LinksFunction } from "@remix-run/react";
+import type { LinksFunction } from "@remix-run/node";
 import { FaTrash, FaEdit } from "react-icons/fa";
+
 
 // Link to your Tailwind CSS file
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: "/styles/tailwind.css" }
 ];
-
-// Importing your Tailwind CSS file directly
-import "../../styles/tailwind.css"; 
 
 interface Order {
   id: number;
@@ -44,9 +42,9 @@ export default function OrdersPage() {
           console.error("Failed to fetch orders:", data.message);
           setError(data.message);
         }
-      } catch (error) {
+      } catch (error: any) {
         console.error("Failed to fetch orders:", error);
-        setError(error.message || "An error occurred");
+        setError(error?.message ?? "An error occurred");
       } finally {
         setLoading(false);
       }
